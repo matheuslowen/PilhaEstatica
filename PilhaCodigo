@@ -1,0 +1,48 @@
+import java.util.EmptyStackException;
+
+public class StaticStack<T> {
+    private int top;
+    private T[] data;
+
+    @SuppressWarnings("unchecked")
+    public StaticStack(int size) {
+        data = (T[]) new Object[size];
+        top = -1;
+    }
+
+    public void push(T element) {
+        if (isFull()) {
+            throw new StackOverflowError("Pilha está cheia");
+        }
+        data[++top] = element;
+    }
+
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return data[top--];
+    }
+
+    public void clear() {
+        top = -1;
+    }
+
+    public boolean isFull() {
+        return top == data.length - 1;
+    }
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    public static void main(String[] args) {
+        StaticStack<Integer> stack = new StaticStack<>(5);
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        while (!stack.isEmpty()) {
+            System.out.println(stack.pop());
+        }
+    }
+}
